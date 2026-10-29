@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王晨旭202601203040</title>
+
+<!-- ============================================================
+	 样式部分（按区块顺序排列）
+	 ① 主题变量  ② 基础与页头  ③ 区块标题  ④ 走马灯
+	 ⑤ 登录注册  ⑥ 媒体卡片    ⑦ 星级评价  ⑧ 文字格式
+	 ⑨ 数字列表  ⑩ 评论区      ⑪ 官方链接  ⑫ 页脚与响应式
+============================================================ -->
+<style>
+  /* ==========================================================
+	 ① 主题变量
+  ========================================================== */
+  :root {
+	--green:       #3a7d44;
+	--green-dark:  #2b5e34;
+	--green-light: #e6f0e0;
+	--green-pale:  #f4f8f1;
+	--gold:        #e8a317;
+	--bg:          #f3f6f0;
+	--card:        #ffffff;
+	--border:      #e2e8dd;
+	--text:        #2c3330;
+	--text-muted:  #6b7570;
+	--radius:      12px;
+	--shadow:      0 1px 3px rgba(45,94,54,.05), 0 6px 20px rgba(45,94,54,.06);
+  }
+
+  /* ==========================================================
+	 ② 基础与页头
+  ========================================================== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+				 "Microsoft YaHei", "Helvetica Neue", sans-serif;
+	font-size: 15px;
+	line-height: 1.75;
+	color: var(--text);
+	background: var(--bg);
+	background-image:
+	  radial-gradient(circle at 15% 0%, #e9f2e4 0%, transparent 42%),
+	  radial-gradient(circle at 90% 8%, #edf4e8 0%, transparent 38%);
+	background-attachment: fixed;
+	padding: 32px 16px 56px;
+	-webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 960px; margin: 0 auto; }
+
+  .hero { margin-bottom: 30px; }
+
+  .hero-badge {
+	display: inline-block;
+	font-size: 12px;
+	letter-spacing: 1.5px;
+	color: var(--green);
+	background: var(--green-light);
+	padding: 4px 14px;
+	border-radius: 20px;
+	margin-bottom: 14px;
+	font-weight: 600;
+  }
+
+  .hero h1 {
+	font-family: Georgia, "Songti SC", "SimSun", serif;
+	font-size: 34px;
+	font-weight: 700;
+	font-style: italic;
+	color: var(--green-dark);
+	letter-spacing: 3px;
+	line-height: 1.25;
+	margin-bottom: 10px;
+  }
+
+  /* 标题下方的贯穿页面直线 */
+  .hero-line {
+	height: 2px;
+	width: 100%;
+	border: none;
+	margin: 16px 0 14px;
+	background: linear-gradient(90deg,
+	  var(--green) 0%,
+	  var(--green) 18%,
+	  rgba(58,125,68,.35) 55%,
+	  rgba(58,125,68,0) 100%);
+	border-radius: 2px;
+  }
+
+  .hero p { color: var(--text-muted); font-size: 14px; }
+
+  /* ==========================================================
+	 ③ 区块标题
+  ========================================================== */
+  .sec {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 16.5px;
+	font-weight: 700;
+	color: var(--green-dark);
+	margin: 36px 0 16px;
+	letter-spacing: .5px;
+  }
+
+  .sec-num {
+	flex: 0 0 auto;
+	width: 26px;
+	height: 26px;
+	border-radius: 8px;
+	background: var(--green);
+	color: #fff;
+	font-family: Georgia, serif;
+	font-size: 13px;
+	font-weight: 700;
+	display: grid;
+	place-items: center;
+	box-shadow: 0 3px 8px -2px rgba(58,125,68,.45);
+  }
+
+  .sec::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+  }
+
+  /* ==========================================================
+	 ④ 走马灯（大熊猫）
+  ========================================================== */
+  .marquee {
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(90deg, var(--green-dark), var(--green) 50%, var(--green-dark));
+	border-radius: var(--radius);
+	padding: 11px 0;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 6px 18px -6px rgba(45,94,54,.35);
+  }
+
+  .marquee::before,
+  .marquee::after {
+	content: "";
+	position: absolute;
+	top: 0; bottom: 0;
+	width: 48px;
+	z-index: 2;
+	pointer-events: none;
+  }
+  .marquee::before { left: 0;  background: linear-gradient(90deg, var(--green-dark), transparent); }
+  .marquee::after  { right: 0; background: linear-gradient(270deg, var(--green-dark), transparent); }
+
+  .marquee-text {
+	display: inline-block;
+	white-space: nowrap;
+	padding-left: 100%;
+	animation: scroll 32s linear infinite;
+	color: #f0f7ee;
+	font-size: 14px;
+	letter-spacing: .6px;
+  }
+  .marquee:hover .marquee-text { animation-play-state: paused; }
+
+  @keyframes scroll {
+	0%   { transform: translateX(0); }
+	100% { transform: translateX(-100%); }
+  }
+
+  /* ==========================================================
+	 ⑤ 登录 / 注册
+  ========================================================== */
+  .auth-wrap { display: flex; justify-content: center; }
+
+  .auth-box {
+	width: 100%;
+	max-width: 400px;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	overflow: hidden;
+  }
+
+  .auth-tabs { display: flex; border-bottom: 1px solid var(--border); }
+
+  .auth-tab {
+	flex: 1;
+	text-align: center;
+	padding: 13px 0;
+	cursor: pointer;
+	font-size: 14.5px;
+	color: var(--text-muted);
+	position: relative;
+	transition: color .2s;
+	user-select: none;
+  }
+  .auth-tab.active { color: var(--green-dark); font-weight: 700; }
+  .auth-tab.active::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: -1px;
+	transform: translateX(-50%);
+	width: 40%;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--green);
+  }
+
+  .auth-body { padding: 22px 24px 24px; }
+
+  .form-row { margin-bottom: 15px; }
+  .form-row label {
+	display: block;
+	font-size: 12.5px;
+	color: var(--text-muted);
+	margin-bottom: 6px;
+	font-weight: 500;
+  }
+  .form-row input {
+	width: 100%;
+	padding: 10px 13px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	font-size: 14px;
+	font-family: inherit;
+	color: var(--text);
+	background: #fbfcfa;
+	outline: none;
+	transition: border-color .2s, box-shadow .2s, background .2s;
+  }
+  .form-row input:focus {
+	border-color: var(--green);
+	background: #fff;
+	box-shadow: 0 0 0 3px rgba(58,125,68,.11);
+  }
+  .form-row input::placeholder { color: #b3bcb5; }
+
+  .btn {
+	padding: 10px 22px;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	background: var(--green);
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	font-family: inherit;
+	cursor: pointer;
+	transition: background .2s, transform .1s, box-shadow .2s;
+  }
+  .btn:hover  { background: var(--green-dark); box-shadow: 0 6px 14px -6px rgba(58,125,68,.6); }
+  .btn:active { transform: scale(.98); }
+  .btn-block  { width: 100%; }
+
+  .btn-ghost {
+	background: transparent;
+	color: var(--green-dark);
+	border-color: var(--border);
+	font-weight: 500;
+	padding: 7px 16px;
+	font-size: 13px;
+  }
+  .btn-ghost:hover { background: var(--green-pale); box-shadow: none; }
+
+  .msg {
+	font-size: 13px;
+	margin-top: 12px;
+	min-height: 18px;
+  }
+  .msg.error   { color: #c0392b; }
+  .msg.success { color: var(--green); }
+
+  .user-bar {
+	display: none;
+	align-items: center;
+	gap: 12px;
+	background: var(--green-pale);
+	border: 1px solid #d6e4cf;
+	border-radius: 10px;
+	padding: 12px 18px;
+	margin-bottom: 4px;
+	font-size: 14px;
+	color: var(--green-dark);
+  }
+  .user-bar.show { display: flex; }
+  .user-bar .who { flex: 1; }
+  .user-bar b { color: var(--green-dark); }
+
+  /* ==========================================================
+	 ⑥ 媒体卡片区（档案 / 文字格式 / 照片·视频·音乐）
+  ========================================================== */
+  .media-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+  }
+
+  /* 媒体三列：照片 / 视频 / 音乐 */
+  .media-grid-3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+  }
+
+  .card {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 18px;
+	box-shadow: var(--shadow);
+	transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 2px 6px rgba(45,94,54,.06), 0 14px 30px -10px rgba(45,94,54,.18);
+  }
+
+  .card h3 {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--green-dark);
+	margin-bottom: 14px;
+	padding-bottom: 10px;
+	border-bottom: 1px dashed var(--border);
+	letter-spacing: .3px;
+  }
+
+  /* 媒体卡片：内容纵向排列，评价贴底 */
+  .media-card {
+	display: flex;
+	flex-direction: column;
+  }
+  .media-card .rating { margin-top: auto; }
+
+  /* 熊猫档案表格 */
+  .panda-card {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+  }
+  .panda-card th {
+	width: 86px;
+	text-align: left;
+	padding: 7px 10px;
+	background: var(--green-pale);
+	color: var(--green-dark);
+	font-weight: 600;
+	font-size: 12.5px;
+	white-space: nowrap;
+	border-radius: 6px 0 0 6px;
+  }
+  .panda-card td {
+	padding: 7px 10px;
+	border-bottom: 1px solid #f1f4ef;
+	border-radius: 0 6px 6px 0;
+  }
+  .panda-card tr:last-child td { border-bottom: none; }
+  .panda-card tr:hover th,
+  .panda-card tr:hover td { background: var(--green-light); }
+
+  /* 彩虹色档案文字 */
+  .panda-card td.c-red    { color: #c0392b; font-weight: 600; }
+  .panda-card td.c-orange { color: #d35400; font-weight: 600; }
+  .panda-card td.c-yellow { color: #b8860b; font-weight: 600; }
+  .panda-card td.c-green  { color: #2e7d32; font-weight: 600; }
+  .panda-card td.c-cyan   { color: #00838f; font-weight: 600; }
+  .panda-card td.c-blue   { color: #1565c0; font-weight: 600; }
+  .panda-card td.c-purple { color: #6a1b9a; font-weight: 600; }
+  .panda-card td.c-gray   { color: #7a837e; font-weight: 600; }
+  .panda-card td.c-black  { color: #1a1a1a; font-weight: 600; }
+
+  /* 熊猫照片 */
+  .photo {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	display: block;
+	border-radius: 10px;
+	background: var(--green-pale);
+	margin-bottom: 10px;
+	box-shadow: 0 4px 12px -6px rgba(45,94,54,.35);
+  }
+
+  .img-fallback {
+	padding: 34px 12px;
+	text-align: center;
+	color: var(--text-muted);
+	background: var(--green-pale);
+	border: 1px dashed #cddcc6;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	font-size: 13px;
+	line-height: 1.7;
+	aspect-ratio: 4 / 3;
+	display: grid;
+	place-items: center;
+  }
+
+  /* 熊猫视频 */
+  .media-card video {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: contain;
+	display: block;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	background: #000;
+	box-shadow: 0 4px 12px -6px rgba(45,94,54,.35);
+  }
+
+  /* 纯音乐：均衡器装饰 */
+  .eq-bars {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 5px;
+	height: 120px;
+	padding: 16px 10px;
+	margin-bottom: 10px;
+	background: linear-gradient(180deg, var(--green-pale), #eef5ea);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+  }
+  .eq-bars span {
+	width: 6px;
+	border-radius: 3px;
+	background: linear-gradient(180deg, var(--green), var(--green-dark));
+	transform-origin: bottom;
+	animation: eq 1.3s ease-in-out infinite;
+	opacity: .85;
+  }
+  .eq-bars span:nth-child(1) { height: 28%; animation-delay: 0s; }
+  .eq-bars span:nth-child(2) { height: 68%; animation-delay: .15s; }
+  .eq-bars span:nth-child(3) { height: 42%; animation-delay: .3s; }
+  .eq-bars span:nth-child(4) { height: 92%; animation-delay: .45s; }
+  .eq-bars span:nth-child(5) { height: 55%; animation-delay: .6s; }
+  .eq-bars span:nth-child(6) { height: 78%; animation-delay: .75s; }
+  .eq-bars span:nth-child(7) { height: 36%; animation-delay: .9s; }
+
+  @keyframes eq {
+	0%, 100% { transform: scaleY(.45); }
+	50%      { transform: scaleY(1); }
+  }
+
+  .audio-shell {
+	background: var(--green-pale);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	padding: 12px;
+	margin-bottom: 10px;
+  }
+  .audio-shell audio { width: 100%; display: block; }
+
+  .note { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 4px; }
+
+  /* ==========================================================
+	 ⑦ 星级评价
+  ========================================================== */
+  .rating {
+	margin-top: 14px;
+	padding-top: 12px;
+	border-top: 1px dashed var(--border);
+  }
+  .rating-label {
+	font-size: 12px;
+	color: var(--text-muted);
+	margin-bottom: 4px;
+	font-weight: 500;
+  }
+  .stars {
+	display: inline-flex;
+	gap: 2px;
+	font-size: 23px;
+	line-height: 1;
+	cursor: pointer;
+	user-select: none;
+  }
+  .star {
+	color: #d9ded4;
+	transition: color .15s, transform .15s;
+  }
+  .star:hover { transform: scale(1.15); }
+  .star.on {
+	color: var(--gold);
+	text-shadow: 0 1px 4px rgba(232,163,23,.35);
+  }
+  .rating-info {
+	font-size: 12px;
+	color: var(--text-muted);
+	margin-top: 4px;
+	min-height: 16px;
+  }
+
+  /* ==========================================================
+	 ⑧ 文字格式
+  ========================================================== */
+  .fmt-card {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 8px 22px;
+	box-shadow: var(--shadow);
+  }
+
+  .fmt-row {
+	padding: 11px 0;
+	border-bottom: 1px dashed #eef2eb;
+	font-size: 14px;
+	line-height: 1.8;
+  }
+  .fmt-row:last-child { border-bottom: none; }
+
+  .fmt-row code.inline {
+	background: #f6f8f4;
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	padding: 1px 6px;
+	font-family: "SF Mono", Consolas, "Courier New", monospace;
+	font-size: 13px;
+	color: #b5453a;
+  }
+
+  .fmt-row mark {
+	background: #fff2b0;
+	padding: 0 4px;
+	border-radius: 3px;
+  }
+
+  .fmt-quote {
+	border-left: 3px solid var(--green);
+	padding: 6px 14px;
+	margin: 2px 0;
+	color: var(--text-muted);
+	font-style: italic;
+	background: var(--green-pale);
+	border-radius: 0 8px 8px 0;
+	font-size: 13.5px;
+  }
+
+  /* ==========================================================
+	 ⑨ 数字列表
+  ========================================================== */
+  .list-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+  }
+
+  .list-card {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 18px 20px;
+	box-shadow: var(--shadow);
+	transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .list-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 2px 6px rgba(45,94,54,.06), 0 14px 30px -10px rgba(45,94,54,.18);
+  }
+
+  .list-card h3 {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--green-dark);
+	margin-bottom: 14px;
+	padding-bottom: 10px;
+	border-bottom: 1px dashed var(--border);
+  }
+
+  ol.styled {
+	list-style: none;
+	counter-reset: c;
+	margin: 0;
+	padding: 0;
+  }
+  ol.styled li {
+	counter-increment: c;
+	position: relative;
+	padding-left: 30px;
+	margin-bottom: 11px;
+	font-size: 13.5px;
+	line-height: 1.7;
+	color: #3a423e;
+  }
+  ol.styled li:last-child { margin-bottom: 0; }
+  ol.styled li::before {
+	content: counter(c);
+	position: absolute;
+	left: 0;
+	top: 2px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: var(--green-light);
+	color: var(--green-dark);
+	font-family: Georgia, serif;
+	font-size: 11px;
+	font-weight: 700;
+	display: grid;
+	place-items: center;
+  }
+
+  .sym-star::before  { content: "★ "; color: var(--gold); }
+  .sym-check::before { content: "✓ "; color: #2e7d32; font-weight: 700; }
+  .sym-arrow::before { content: "➤ "; color: var(--green); font-size: .85em; }
+  .sym-heart::before { content: "♥ "; color: #c0392b; }
+
+  /* ==========================================================
+	 ⑩ 评论区
+  ========================================================== */
+  .comment-card {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 20px 22px;
+	box-shadow: var(--shadow);
+  }
+
+  .comment-card input,
+  .comment-card textarea {
+	width: 100%;
+	padding: 10px 13px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	font-size: 14px;
+	font-family: inherit;
+	color: var(--text);
+	background: #fbfcfa;
+	outline: none;
+	margin-bottom: 11px;
+	transition: border-color .2s, box-shadow .2s, background .2s;
+  }
+  .comment-card textarea {
+	min-height: 88px;
+	resize: vertical;
+	line-height: 1.6;
+  }
+  .comment-card input:focus,
+  .comment-card textarea:focus {
+	border-color: var(--green);
+	background: #fff;
+	box-shadow: 0 0 0 3px rgba(58,125,68,.11);
+  }
+  .comment-card input::placeholder,
+  .comment-card textarea::placeholder { color: #b3bcb5; }
+
+  .comment-list {
+	margin-top: 18px;
+	border-top: 1px solid #f1f4ef;
+	padding-top: 6px;
+  }
+
+  .comment-item {
+	display: flex;
+	gap: 11px;
+	padding: 13px 0;
+	border-bottom: 1px solid #f1f4ef;
+	animation: fadeIn .3s ease;
+  }
+  .comment-item:last-child { border-bottom: none; }
+
+  @keyframes fadeIn {
+	from { opacity: 0; transform: translateY(-4px); }
+	to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .c-avatar {
+	flex: 0 0 auto;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	background: var(--green-light);
+	color: var(--green-dark);
+	font-size: 14px;
+	font-weight: 700;
+	display: grid;
+	place-items: center;
+	font-family: Georgia, serif;
+  }
+
+  .c-main { flex: 1; min-width: 0; }
+
+  .c-head {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	margin-bottom: 2px;
+  }
+  .c-name { font-size: 13.5px; font-weight: 700; color: var(--text); }
+  .c-time { margin-left: auto; font-size: 11.5px; color: #a8b0aa; }
+
+  .c-body {
+	font-size: 14px;
+	line-height: 1.7;
+	color: #3a423e;
+	white-space: pre-wrap;
+	word-break: break-word;
+  }
+
+  .empty {
+	color: var(--text-muted);
+	font-size: 13.5px;
+	text-align: center;
+	padding: 16px 0;
+  }
+
+  /* ==========================================================
+	 ⑪ 官方链接
+  ========================================================== */
+  .official {
+	text-align: center;
+	margin: 36px 0 8px;
+  }
+  .official a {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 11px 26px;
+	border-radius: 30px;
+	background: var(--green-dark);
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: .5px;
+	box-shadow: 0 8px 20px -10px rgba(43,94,52,.75);
+	transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .official a:hover {
+	background: var(--green);
+	transform: translateY(-2px);
+	box-shadow: 0 12px 26px -10px rgba(43,94,52,.9);
+  }
+
+  /* ==========================================================
+	 ⑫ 页脚与响应式
+  ========================================================== */
+  footer {
+	text-align: center;
+	color: #a3aca5;
+	font-size: 12.5px;
+	margin-top: 40px;
+	padding-top: 20px;
+	border-top: 1px solid var(--border);
+	letter-spacing: .3px;
+  }
+
+  @media (max-width: 860px) {
+	.media-grid-3 { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+	body { padding: 20px 12px 40px; }
+	.hero h1 { font-size: 27px; }
+	.media-grid-3,
+	.list-grid { grid-template-columns: 1fr; }
+	.fmt-card { padding: 6px 16px; }
+	.sec { font-size: 15.5px; margin: 28px 0 14px; }
+	.marquee-text { font-size: 13px; animation-duration: 24s; }
+	.eq-bars { height: 90px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================================
+	   页面结构（按区块顺序排列）
+	   ① 页头  ② 大熊猫走马灯  ③ 登录注册  ④ 档案·格式·媒体
+	   ⑤ 知识清单  ⑥ 评论区  ⑦ 官方链接  ⑧ 页脚
+  ============================================================ -->
+
+  <!-- ==================== 页头 ==================== -->
+  <header class="hero">
+	<div class="hero-badge">🐼 国宝档案</div>
+	<h1><em>大熊猫</em></h1>
+	<hr class="hero-line">
+	<p>黑白相间的毛色 · 竹林深处的活化石 · 中国的国宝</p>
+  </header>
+
+  <!-- ==================== ① 大熊猫（走马灯） ==================== -->
+  <h2 class="sec"><span class="sec-num">1</span>大熊猫</h2>
+  <div class="marquee">
+	<span class="marquee-text">
+	  🐼 <b><i>大熊猫</i></b> · 中国国宝 ｜ 黑白毛色，圆脸短尾 ｜ 主食竹子，日食 12～38 公斤 ｜ 栖息四川、陕西、甘肃山区竹林 ｜ 国家一级保护动物 ｜ 世界自然基金会（WWF）会徽物种 ｜ 被称为"活化石" ｜ 全球野生种群约 1800 只
+	</span>
+  </div>
+
+  <!-- ==================== ② 登录 / 注册 ==================== -->
+  <h2 class="sec"><span class="sec-num">2</span>登录 / 注册</h2>
+
+  <div class="auth-wrap">
+	<div style="width:100%; max-width:400px;">
+
+	  <!-- 已登录状态条 -->
+	  <div class="user-bar" id="userBar">
+		<span class="who">当前已登录：<b id="userNameShow"></b></span>
+		<button class="btn btn-ghost" id="logoutBtn">退出登录</button>
+	  </div>
+
+	  <!-- 登录 / 注册窗口 -->
+	  <div class="auth-box" id="authBox">
+		<div class="auth-tabs">
+		  <div class="auth-tab active" data-tab="login">登录</div>
+		  <div class="auth-tab" data-tab="register">注册</div>
+		</div>
+
+		<div class="auth-body">
+		  <!-- 登录表单 -->
+		  <form id="loginForm">
+			<div class="form-row">
+			  <label>用户名</label>
+			  <input type="text" id="loginUser" placeholder="请输入用户名" autocomplete="username">
+			</div>
+			<div class="form-row">
+			  <label>密码</label>
+			  <input type="password" id="loginPass" placeholder="请输入密码" autocomplete="current-password">
+			</div>
+			<button type="submit" class="btn btn-block">登 录</button>
+			<div class="msg" id="loginMsg"></div>
+		  </form>
+
+		  <!-- 注册表单 -->
+		  <form id="registerForm" style="display:none;">
+			<div class="form-row">
+			  <label>用户名</label>
+			  <input type="text" id="regUser" placeholder="3～16 个字符" autocomplete="username">
+			</div>
+			<div class="form-row">
+			  <label>密码</label>
+			  <input type="password" id="regPass" placeholder="至少 6 位" autocomplete="new-password">
+			</div>
+			<div class="form-row">
+			  <label>确认密码</label>
+			  <input type="password" id="regPass2" placeholder="请再次输入密码" autocomplete="new-password">
+			</div>
+			<button type="submit" class="btn btn-block">注 册</button>
+			<div class="msg" id="regMsg"></div>
+		  </form>
+		</div>
+	  </div>
+
+	</div>
+  </div>
+
+  <!-- ==================== ③ 档案 · 文字格式 · 媒体 ==================== -->
+  <h2 class="sec"><span class="sec-num">3</span>熊猫档案 · 文字格式 · 照片视频 · 纯音乐</h2>
+
+  <div class="media-stack">
+
+	<!-- 3-1 熊猫档案表格 -->
+	<div class="card">
+	  <h3>🐼 熊猫档案（彩虹色）</h3>
+	  <table class="panda-card">
+		<tr><th>中文名</th><td class="c-red"><b><i>大熊猫</i></b></td></tr>
+		<tr><th>学名</th><td class="c-orange">Ailuropoda melanoleuca</td></tr>
+		<tr><th>分类</th><td class="c-yellow">哺乳纲 · 食肉目 · 熊科</td></tr>
+		<tr><th>分布</th><td class="c-green">四川、陕西、甘肃山区竹林</td></tr>
+		<tr><th>食物</th><td class="c-cyan">竹子（约占 99%）</td></tr>
+		<tr><th>体长</th><td class="c-blue">1.2～1.8 米</td></tr>
+		<tr><th>体重</th><td class="c-purple">80～125 公斤</td></tr>
+		<tr><th>寿命</th><td class="c-gray">野生约 20 年，圈养可达 30 年</td></tr>
+		<tr><th>保护级别</th><td class="c-black">国家一级 / IUCN 易危</td></tr>
+	  </table>
+
+	  <div class="rating">
+		<div class="rating-label">档案评价</div>
+		<div class="stars">
+		  <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span>
+		</div>
+		<div class="rating-info"></div>
+	  </div>
+	</div>
+
+	<!-- 3-2 文字格式 -->
+	<div class="fmt-card">
+	  <div class="fmt-row"><b><i>大熊猫</i></b>是中国特有的珍稀动物，被誉为<strong>"国宝"</strong>。</div>
+	  <div class="fmt-row">其学名为 <i>Ailuropoda melanoleuca</i>，属<em>食肉目熊科</em>。</div>
+	  <div class="fmt-row"><u><b><i>大熊猫</i></b>是国家一级保护动物</u>，受到严格的法律保护。</div>
+	  <div class="fmt-row"><s>过去种群数量一度锐减</s>，如今在多方努力下逐步恢复。</div>
+	  <div class="fmt-row">每天进食 12～38 公斤竹子，可吸收其中 <sup>2</sup> 成营养；毛色以黑<sub>白</sub>相间为主。</div>
+	  <div class="fmt-row"><small>成年<b><i>大熊猫</i></b>体长约 1.5 米，体重 80～125 公斤。</small></div>
+	  <div class="fmt-row">它的拉丁学名写作 <code class="inline">Ailuropoda melanoleuca</code>。</div>
+	  <div class="fmt-row"><b><i>大熊猫</i></b>是 <mark>世界自然基金会（WWF）</mark> 的会徽物种。</div>
+	  <div class="fmt-row">
+		<div class="fmt-quote">"<b><i>大熊猫</i></b>是中国的国宝，也是世界生物多样性保护的旗舰物种。"</div>
+	  </div>
+	</div>
+
+	<!-- 3-3 照片 / 视频 / 音乐（三列并排） -->
+	<div class="media-grid-3">
+
+	  <!-- 熊猫照片 -->
+	  <div class="card media-card">
+		<h3>📷 熊猫照片</h3>
+
+		<img
+		  class="photo"
+		  src="C:\Users\35385\Desktop\新建文件夹 (2)\王晨旭202601203040\Panda.JPG"
+		  alt="真实大熊猫照片"
+		  loading="lazy"
+		  onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+		>
+		<div class="img-fallback" style="display:none;">
+		  <div>
+			🐼 熊猫照片加载失败<br>
+			<span style="font-size:12px;">请检查网络，或替换为本地图片</span>
+		  </div>
+		</div>
+
+		<div class="note">来源：Wikimedia Commons · 可替换为本地图片</div>
+
+		<div class="rating">
+		  <div class="rating-label">照片评价</div>
+		  <div class="stars">
+			<span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span>
+		  </div>
+		  <div class="rating-info"></div>
+		</div>
+	  </div>
+
+	  <!-- 熊猫视频 -->
+	  <div class="card media-card">
+		<h3>🎬 熊猫视频</h3>
+
+		<video controls muted loop playsinline
+			   poster="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/800px-Grosser_Panda.JPG">
+		  <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+		  浏览器不支持视频。
+		</video>
+
+		<div class="note">示例视频（MDN）· 可替换为真实熊猫视频</div>
+
+		<div class="rating">
+		  <div class="rating-label">视频评价</div>
+		  <div class="stars">
+			<span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span>
+		  </div>
+		  <div class="rating-info"></div>
+		</div>
+	  </div>
+
+	  <!-- 纯音乐 -->
+	  <div class="card media-card">
+		<h3>🎵 纯音乐</h3>
+
+		<!-- 均衡器装饰 -->
+		<div class="eq-bars" aria-hidden="true">
+		  <span></span><span></span><span></span><span></span>
+		  <span></span><span></span><span></span>
+		</div>
+
+		<div class="audio-shell">
+		  <audio controls preload="metadata" loop>
+			<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+			浏览器不支持音频。
+		  </audio>
+		</div>
+
+		<div class="note">纯器乐 · 无歌词（SoundHelix 示例）</div>
+	  </div>
+
+	</div>
+
+  </div>
+
+  <!-- ==================== ④ 大熊猫知识清单 ==================== -->
+  <h2 class="sec"><span class="sec-num">4</span>大熊猫知识清单</h2>
+
+  <div class="list-grid">
+	<div class="list-card">
+	  <h3>🌿 生活习性</h3>
+	  <ol class="styled">
+		<li><span class="sym-star"></span>每天进食 12～38 公斤竹子，占食物的 99%。</li>
+		<li><span class="sym-check"></span>喜欢独居，具有固定的活动范围与巢域。</li>
+		<li><span class="sym-arrow"></span>善于爬树与游泳，尤其幼年时期更活跃。</li>
+		<li><span class="sym-heart"></span>每年 3～5 月为发情期，孕期约 5 个月。</li>
+	  </ol>
+	</div>
+
+	<div class="list-card">
+	  <h3>🛡️ 保护措施</h3>
+	  <ol class="styled">
+		<li><span class="sym-check"></span>建立多个<b><i>大熊猫</i></b>自然保护区，覆盖主要栖息地。</li>
+		<li><span class="sym-arrow"></span>实施"天然林保护工程"，恢复竹林生态。</li>
+		<li><span class="sym-star"></span>开展人工繁育与野化放归研究。</li>
+		<li><span class="sym-heart"></span>加强国际合作，共同保护这一旗舰物种。</li>
+	  </ol>
+	</div>
+  </div>
+
+  <!-- ==================== ⑤ 评论区 ==================== -->
+  <h2 class="sec"><span class="sec-num">5</span>评论区</h2>
+
+  <div class="comment-card">
+	<form id="commentForm">
+	  <input type="text" id="cName" placeholder="昵称（可选，留空显示「匿名」）" maxlength="20">
+	  <textarea id="cText" placeholder="写下你的评论…（必填）" maxlength="300"></textarea>
+	  <button type="submit" class="btn">发表评论</button>
+	</form>
+
+	<div class="comment-list" id="commentList">
+	  <div class="empty" id="commentEmpty">还没有评论，来说两句吧～</div>
+	</div>
+  </div>
+
+  <!-- ==================== ⑥ 官方链接 ==================== -->
+  <div class="official">
+	<a href="https://www.forestry.gov.cn" target="_blank" rel="noopener noreferrer">
+	  <span>🌿</span><span>国家林业和草原局 · 野生动物保护</span><span>↗</span>
+	</a>
+  </div>
+
+  <!-- ==================== 页脚 ==================== -->
+  <footer>王晨旭 202601203040 ｜ <b><i>大熊猫</i></b>国宝介绍 ｜ 纯前端演示，数据保存在本机浏览器</footer>
+</div>
+
+<!-- ============================================================
+	 脚本部分（按功能顺序排列）
+	 ① 登录 / 注册   ② 星级评价   ③ 评论区
+============================================================ -->
+<script>
+/* ==========================================================
+   ① 登录 / 注册（localStorage 模拟）
+========================================================== */
+(function () {
+  var USERS_KEY   = 'demo_users';
+  var CURRENT_KEY = 'demo_current_user';
+
+  var authBox      = document.getElementById('authBox');
+  var userBar      = document.getElementById('userBar');
+  var userNameShow = document.getElementById('userNameShow');
+
+  var loginForm    = document.getElementById('loginForm');
+  var registerForm = document.getElementById('registerForm');
+  var loginMsg     = document.getElementById('loginMsg');
+  var regMsg       = document.getElementById('regMsg');
+
+  function getUsers() {
+	try { return JSON.parse(localStorage.getItem(USERS_KEY)) || {}; }
+	catch (e) { return {}; }
+  }
+  function saveUsers(users) {
+	localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  }
+  function showMsg(el, text, type) {
+	el.textContent = text;
+	el.className = 'msg ' + (type || '');
+  }
+
+  /* 切换登录 / 注册标签 */
+  document.querySelectorAll('.auth-tab').forEach(function (tab) {
+	tab.addEventListener('click', function () {
+	  document.querySelectorAll('.auth-tab').forEach(function (t) {
+		t.classList.remove('active');
+	  });
+	  tab.classList.add('active');
+	  var isLogin = tab.dataset.tab === 'login';
+	  loginForm.style.display    = isLogin ? 'block' : 'none';
+	  registerForm.style.display = isLogin ? 'none'  : 'block';
+	  loginMsg.textContent = '';
+	  regMsg.textContent   = '';
+	});
+  });
+
+  /* 登录状态切换 */
+  function setLoggedIn(name) {
+	authBox.style.display = 'none';
+	userBar.classList.add('show');
+	userNameShow.textContent = name;
+  }
+  function setLoggedOut() {
+	authBox.style.display = 'block';
+	userBar.classList.remove('show');
+	userNameShow.textContent = '';
+  }
+
+  /* 注册 */
+  registerForm.addEventListener('submit', function (e) {
+	e.preventDefault();
+	var u  = document.getElementById('regUser').value.trim();
+	var p  = document.getElementById('regPass').value;
+	var p2 = document.getElementById('regPass2').value;
+
+	if (u.length < 3 || u.length > 16) return showMsg(regMsg, '用户名需为 3～16 个字符', 'error');
+	if (p.length < 6)                  return showMsg(regMsg, '密码至少 6 位', 'error');
+	if (p !== p2)                      return showMsg(regMsg, '两次输入的密码不一致', 'error');
+
+	var users = getUsers();
+	if (users[u]) return showMsg(regMsg, '该用户名已被注册', 'error');
+
+	users[u] = p;
+	saveUsers(users);
+	showMsg(regMsg, '注册成功，请切换到「登录」标签登录', 'success');
+	registerForm.reset();
+
+	setTimeout(function () {
+	  document.querySelector('.auth-tab[data-tab="login"]').click();
+	  document.getElementById('loginUser').value = u;
+	  document.getElementById('loginPass').focus();
+	  showMsg(loginMsg, '请使用刚注册的账号登录', 'success');
+	}, 1200);
+  });
+
+  /* 登录 */
+  loginForm.addEventListener('submit', function (e) {
+	e.preventDefault();
+	var u = document.getElementById('loginUser').value.trim();
+	var p = document.getElementById('loginPass').value;
+
+	if (!u || !p) return showMsg(loginMsg, '请输入用户名和密码', 'error');
+
+	var users = getUsers();
+	if (!users[u])      return showMsg(loginMsg, '用户不存在，请先注册', 'error');
+	if (users[u] !== p) return showMsg(loginMsg, '密码错误', 'error');
+
+	localStorage.setItem(CURRENT_KEY, u);
+	showMsg(loginMsg, '登录成功', 'success');
+	loginForm.reset();
+	setTimeout(function () { setLoggedIn(u); }, 400);
+  });
+
+  /* 退出登录 */
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+	localStorage.removeItem(CURRENT_KEY);
+	setLoggedOut();
+	showMsg(loginMsg, '已退出登录', 'success');
+  });
+
+  /* 页面加载时恢复登录状态 */
+  var saved = localStorage.getItem(CURRENT_KEY);
+  if (saved && getUsers()[saved]) setLoggedIn(saved);
+  else setLoggedOut();
+})();
+
+
+/* ==========================================================
+   ② 星级评价（档案 / 照片 / 视频各自独立）
+========================================================== */
+(function () {
+  document.querySelectorAll('.rating').forEach(function (box) {
+	var stars  = box.querySelectorAll('.star');
+	var infoEl = box.querySelector('.rating-info');
+	var scores = [];
+
+	function render(avg) {
+	  var full = Math.round(avg);
+	  stars.forEach(function (s, i) {
+		s.classList.toggle('on', i < full);
+	  });
+	}
+
+	stars.forEach(function (star, index) {
+	  /* 悬停高亮 */
+	  star.addEventListener('mouseenter', function () {
+		stars.forEach(function (s, i) {
+		  s.classList.toggle('on', i <= index);
+		});
+	  });
+
+	  /* 移出恢复平均值 */
+	  star.addEventListener('mouseleave', function () {
+		var avg = scores.length
+		  ? scores.reduce(function (a, b) { return a + b; }, 0) / scores.length
+		  : 0;
+		render(avg);
+	  });
+
+	  /* 点击评分 */
+	  star.addEventListener('click', function () {
+		var v = parseInt(star.dataset.v, 10);
+		scores.push(v);
+		var avg = scores.reduce(function (a, b) { return a + b; }, 0) / scores.length;
+		render(avg);
+		infoEl.textContent = '平均 ' + avg.toFixed(1) + ' 分 · 共 ' + scores.length + ' 次评价';
+	  });
+	});
+  });
+})();
+
+
+/* ==========================================================
+   ③ 评论区（带头像，最新在上）
+========================================================== */
+(function () {
+  var form    = document.getElementById('commentForm');
+  var nameEl  = document.getElementById('cName');
+  var textEl  = document.getElementById('cText');
+  var listEl  = document.getElementById('commentList');
+  var emptyEl = document.getElementById('commentEmpty');
+
+  function timeText() {
+	var d = new Date();
+	function p(n) { return n < 10 ? '0' + n : '' + n; }
+	return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate())
+		 + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+
+  function avatarChar(name) {
+	if (!name || !name.trim()) return '匿';
+	return name.trim().charAt(0).toUpperCase();
+  }
+
+  form.addEventListener('submit', function (e) {
+	e.preventDefault();
+
+	var text = textEl.value.trim();
+	if (!text) {
+	  textEl.style.borderColor = '#c0392b';
+	  textEl.focus();
+	  setTimeout(function () { textEl.style.borderColor = ''; }, 900);
+	  return;
+	}
+
+	var name = nameEl.value.trim() || '匿名';
+
+	if (emptyEl) emptyEl.style.display = 'none';
+
+	/* 头像 */
+	var avatar = document.createElement('div');
+	avatar.className = 'c-avatar';
+	avatar.textContent = avatarChar(name);
+
+	/* 头部：昵称 + 时间 */
+	var head = document.createElement('div');
+	head.className = 'c-head';
+
+	var nameSpan = document.createElement('span');
+	nameSpan.className = 'c-name';
+	nameSpan.textContent = name;
+
+	var timeSpan = document.createElement('span');
+	timeSpan.className = 'c-time';
+	timeSpan.textContent = timeText();
+
+	head.appendChild(nameSpan);
+	head.appendChild(timeSpan);
+
+	/* 内容 */
+	var body = document.createElement('div');
+	body.className = 'c-body';
+	body.textContent = text;
+
+	/* 组装 */
+	var main = document.createElement('div');
+	main.className = 'c-main';
+	main.appendChild(head);
+	main.appendChild(body);
+
+	var item = document.createElement('div');
+	item.className = 'comment-item';
+	item.appendChild(avatar);
+	item.appendChild(main);
+
+	listEl.insertBefore(item, listEl.firstChild);
+
+	textEl.value = '';
+	textEl.focus();
+  });
+})();
+</script>
+</body>
+</html>
